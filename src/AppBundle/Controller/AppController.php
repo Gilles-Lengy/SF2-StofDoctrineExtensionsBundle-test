@@ -15,7 +15,7 @@ class AppController extends Controller {
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        /** Pour générer un arbre * */
+        /** Pour générer un arbre * *
         $food = new Category();
         $food->setTitle('Food');
 
