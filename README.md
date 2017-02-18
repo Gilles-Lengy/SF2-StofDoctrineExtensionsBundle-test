@@ -14,3 +14,6 @@ Ne pas oublier :
 $ composer require stof/doctrine-extensions-bundle
 
 new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+
+HACK :
+C:\wamp\www\SF2-SDEB-test\src\TreeBundle\Listener\DoctrineExtensionListener.php chercher GillesBizarroïd
