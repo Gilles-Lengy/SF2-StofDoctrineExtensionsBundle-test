@@ -1,5 +1,5 @@
 {# On utilise ici le layout général, qui se situe dans ce même AppBundle maintenant #}
-{% extends "AppBundle::layout.html.twig" %}
+{% extends "CoreBundle::layout.html.twig" %}
 
 {% block title %}
     Page d'accueil - {{ parent() }}
@@ -24,5 +24,13 @@
     <h2>Page d'accueil</h2>
 
     <p>Je vais tester l'arborescence en premier</p>
+    
+    <div class="well">
+        <ul class="main-menu">
+    <ul class="main-menu">
+    {% include "CoreBundle:Includes:tree.html.twig" with {'links':arrayTree} only %}
+</ul>
+</ul>
+    </div>
 
 {% endblock %}

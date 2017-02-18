@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="ext_categories")
- * @ORM\Entity(repositoryClass="Entity\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="TreeBundle\Entity\Repository\CategoryRepository")
  * @Gedmo\TranslationEntity(class="TreeBundle\Entity\CategoryTranslation")
  */
 class Category

@@ -1,0 +1,11 @@
+<!--includes/tree.html-->
+{% for link in links %}
+    <li>
+        <a href="{{ link.slug }}">{{ link.title }}</a>
+        {% if link.__children %}
+            <ul>
+                {% include "CoreBundle:Includes:tree.html.twig" with {'links': link.__children} %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}
