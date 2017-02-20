@@ -101,9 +101,15 @@ class CoreController extends Controller {
         $path = $repo->getPath($category);
         //var_dump($path);
 
+        $listItems = $em->getRepository('TreeBundle:Item')->findBy(
+                array('category' => $category), // Pas de critère
+                array('title' => 'asc')
+        );
+
         return $this->render('CoreBundle:Tree:viewCategory.html.twig', array(
                     'category' => $category,
                     'path' => $path,
+                    'listItems' => $listItems
                         )
         );
     }

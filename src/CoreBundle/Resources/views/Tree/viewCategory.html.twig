@@ -29,17 +29,33 @@
                 >> {{ item.title }}          
             {% endfor %}
         </p>
+        {% if listItems %}
+            <h2>Items List</h2>
+            <ul class="list-group">
+            {% endif %}
+            {% for item in listItems %}
+                <li class="list-group-item">
+                    <h3>
+                        {{ item.title }}                    
+                    </h3>
+                </li>
+            {% endfor %}
+            {% if listItems %}
+            </ul>
+        {% endif %}
+
     </div>
+
     <p>
         <a href="{{ path('edit_category', {'slug': category.slug}) }}" class="btn btn-default">
             <i class="glyphicon glyphicon-edit"></i>
             Modifier la catégory
         </a>
         {% if category.level == 2 %}    
-        <a href="{{ path('add_item', {'slug_category': category.slug}) }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-plus"></i>
-            Ajouter Item
-        </a>
+            <a href="{{ path('add_item', {'slug_category': category.slug}) }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-plus"></i>
+                Ajouter Item
+            </a>
         {% endif %}
     </p>
 
