@@ -17,7 +17,8 @@ class CategoryType extends AbstractType {
                     'class' => 'TreeBundle:Category',
                     'property' => 'title',
                     'expanded' => true,
-                    'multiple' => false
+                    'multiple' => false,
+                    'required' => false                    
                 ))
                 ->add('title')                
                 ->add('save', 'submit')
