@@ -2,7 +2,7 @@
 {% extends "CoreBundle::layout.html.twig" %}
 
 {% block title %}
-    Category - {{ parent() }}
+    Edit Category - {{ parent() }}
 {% endblock %}
 
 {% block body %}
@@ -29,12 +29,7 @@
                 >> {{ item.title }}          
             {% endfor %}
         </p>
+        {{ form(form) }}
     </div>
-    <p>
-        <a href="{{ path('edit_category', {'slug': category.slug}) }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-edit"></i>
-            Modifier la catégory
-        </a>
-    </p>
 
 {% endblock %}

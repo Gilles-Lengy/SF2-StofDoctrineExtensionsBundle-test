@@ -106,6 +106,36 @@ class CoreController extends Controller {
         );
     }
 
+    /**
+     * @Route("/edit/category/{slug}", name="edit_category")
+     */
+    public function editCategoryAction(Request $request, $slug) {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('TreeBundle:Category');
+        $category = $repo->findOneBySlug($slug);
+        $path = $repo->getPath($category);
+        //var_dump($path);
+
+        $form = $this->get('form.factory')->create(new CategoryType(), $category);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Category bien enregistrée.');
+
+            return $this->redirect($this->generateUrl('view_category',array("slug"=>$category->getSlug())));
+        }
+
+        return $this->render('CoreBundle:Tree:editCategory.html.twig', array(
+                    'category' => $category,
+                    'path' => $path,
+                    'form' => $form->createView(),
+                        )
+        );
+    }
+
     public function menuAction($limit) {
 
         return $this->render('CoreBundle:Main:menu.html.twig');
