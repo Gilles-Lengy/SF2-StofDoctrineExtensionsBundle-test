@@ -37,6 +37,11 @@
                                 Accueil
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ path('add_category') }}" class="btn btn-default">
+                                Add Category
+                            </a>
+                        </li>
                     </ul>
                     <h4>Dernières Maj</h4>
                     {{ render(controller("CoreBundle:Core:menu", {'limit': 3})) }}

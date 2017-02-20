@@ -65,6 +65,17 @@ class CoreController extends Controller {
                         )
         );
     }
+    
+    /**
+     * @Route("/add/category/", name="add_category")
+     */
+    public function addCategoryAction(Request $request) {
+    $em = $this->getDoctrine()->getManager();
+            return $this->render('CoreBundle:Tree:addCategory.html.twig', array(
+
+                        )
+        );
+    }
 
     public function menuAction($limit) {
 
