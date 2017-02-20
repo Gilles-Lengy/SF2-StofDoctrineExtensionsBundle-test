@@ -13,7 +13,13 @@ class CategoryType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('title')
+                ->add('parent', 'entity', array(
+                    'class' => 'TreeBundle:Category',
+                    'property' => 'title',
+                    'expanded' => true,
+                    'multiple' => false
+                ))
+                ->add('title')                
                 ->add('save', 'submit')
         ;
     }
