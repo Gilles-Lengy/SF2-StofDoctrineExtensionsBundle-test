@@ -182,4 +182,28 @@ class CoreController extends Controller {
         );
     }
 
+    /**
+     * @Route("/view/category/item/{id}", name="view_item")
+     */
+    public function viewItemAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $item = $em->getRepository('TreeBundle:Item')->findOneById($id);
+
+        $repo = $em->getRepository('TreeBundle:Category');
+        $category = $item->getCategory();
+        $path = $repo->getPath($category);
+        //var_dump($path);
+
+
+        return $this->render('CoreBundle:Tree:viewItem.html.twig', array(
+                    'category' => $category,
+                    'path' => $path,
+                    'item' => $item
+                        )
+        );
+    }
+
 }
