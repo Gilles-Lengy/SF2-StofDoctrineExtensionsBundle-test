@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use TreeBundle\Entity\Category;
+use TreeBundle\Form\CategoryType;
 
 class CoreController extends Controller {
 
@@ -48,8 +49,6 @@ class CoreController extends Controller {
         //$children = $repo->children($food, false, 'title');
         $arrayTree = $repo->childrenHierarchy();
         //var_dump($arrayTree);
-
-
 //        $htmlTree = $repo->childrenHierarchy(
 //                null, /* starting from root nodes */ false, /* true: load all children, false: only direct */ array(
 //            'decorate' => true,
@@ -65,14 +64,27 @@ class CoreController extends Controller {
                         )
         );
     }
-    
+
     /**
      * @Route("/add/category/", name="add_category")
      */
     public function addCategoryAction(Request $request) {
-    $em = $this->getDoctrine()->getManager();
-            return $this->render('CoreBundle:Tree:addCategory.html.twig', array(
 
+        $category = new Category();
+        $form = $this->get('form.factory')->create(new CategoryType(), $category);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Category bien enregistrée.');
+
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+
+        return $this->render('CoreBundle:Tree:addCategory.html.twig', array(
+                    'form' => $form->createView(),
                         )
         );
     }
