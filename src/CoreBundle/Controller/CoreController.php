@@ -89,6 +89,23 @@ class CoreController extends Controller {
         );
     }
 
+    /**
+     * @Route("/view/category/{slug}", name="view_category")
+     */
+    public function viewCategoryAction(Request $request, $slug) {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('TreeBundle:Category');
+        $category = $repo->findOneBySlug($slug);
+        $path = $repo->getPath($category);
+        //var_dump($path);
+
+        return $this->render('CoreBundle:Tree:viewCategory.html.twig', array(
+                    'category' => $category,
+                    'path' => $path,
+                        )
+        );
+    }
+
     public function menuAction($limit) {
 
         return $this->render('CoreBundle:Main:menu.html.twig');

@@ -1,0 +1,34 @@
+{# On utilise ici le layout général, qui se situe dans ce même AppBundle maintenant #}
+{% extends "CoreBundle::layout.html.twig" %}
+
+{% block title %}
+    Category - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <div>
+
+        {# On affiche tous les messages flash dont le nom est « notice » #}
+
+        {% for message in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success" role="alert">
+                <p>{{ message }}</p>
+            </div>
+
+
+        {% endfor %}
+
+    </div>
+
+    <h2>{{ category.title }}</h2>
+
+    <div class="well">
+        <p>
+            {% for item in path %}
+                >> {{ item.title }}          
+            {% endfor %}
+        </p>
+    </div>
+
+{% endblock %}
