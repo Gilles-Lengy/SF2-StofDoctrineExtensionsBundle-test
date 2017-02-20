@@ -5,6 +5,7 @@ namespace TreeBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use TreeBundle\Entity\Repository\CategoryRepository;
 
 class CategoryType extends AbstractType {
 
@@ -15,12 +16,16 @@ class CategoryType extends AbstractType {
         $builder
                 ->add('parent', 'entity', array(
                     'class' => 'TreeBundle:Category',
+                    'query_builder' => function (CategoryRepository $er) {
+                        return $er->createQueryBuilder('c')
+                                ->where('c.level = 0')                               
+                                ->orderBy('c.title', 'ASC');
+                    },
                     'property' => 'title',
-                    'expanded' => true,
                     'multiple' => false,
-                    'required' => false                    
+                    'required' => false
                 ))
-                ->add('title')                
+                ->add('title')
                 ->add('save', 'submit')
         ;
     }
