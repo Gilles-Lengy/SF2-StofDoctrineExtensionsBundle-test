@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use TreeBundle\Entity\Category;
 use TreeBundle\Form\CategoryType;
+use TreeBundle\Entity\Item;
+use TreeBundle\Form\ItemType;
 
 class CoreController extends Controller {
 
@@ -125,7 +127,7 @@ class CoreController extends Controller {
 
             $request->getSession()->getFlashBag()->add('notice', 'Category bien enregistrée.');
 
-            return $this->redirect($this->generateUrl('view_category',array("slug"=>$category->getSlug())));
+            return $this->redirect($this->generateUrl('view_category', array("slug" => $category->getSlug())));
         }
 
         return $this->render('CoreBundle:Tree:editCategory.html.twig', array(
@@ -139,6 +141,39 @@ class CoreController extends Controller {
     public function menuAction($limit) {
 
         return $this->render('CoreBundle:Main:menu.html.twig');
+    }
+
+    /**
+     * @Route("/add/Item/{slug_category}", name="add_item")
+     */
+    public function addItemAction(Request $request, $slug_category) {
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('TreeBundle:Category');
+        $category = $repo->findOneBySlug($slug_category);
+        $path = $repo->getPath($category);
+
+        $item = new Item();
+        $form = $this->get('form.factory')->create(new ItemType(), $item);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $item->setCreated(new \Datetime());
+            $item->setUpdated(new \Datetime());
+            $item->setCategory($category);
+            $em->persist($item);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Item bien enregistrée.');
+
+            return $this->redirect($this->generateUrl('view_category', array("slug" => $slug_category)));
+        }
+
+        return $this->render('CoreBundle:Tree:addItem.html.twig', array(
+                    'category' => $category,
+                    'path' => $path,
+                    'form' => $form->createView(),
+                        )
+        );
     }
 
 }

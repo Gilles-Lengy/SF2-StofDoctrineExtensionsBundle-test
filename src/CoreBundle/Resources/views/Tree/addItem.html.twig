@@ -2,7 +2,7 @@
 {% extends "CoreBundle::layout.html.twig" %}
 
 {% block title %}
-    Category - {{ parent() }}
+    Add Item - {{ parent() }}
 {% endblock %}
 
 {% block body %}
@@ -21,7 +21,7 @@
 
     </div>
 
-    <h2>{{ category.title }}</h2>
+    <h2>{{ category.title }} : Ajout Item</h2>
 
     <div class="well">
         <p>
@@ -29,18 +29,9 @@
                 >> {{ item.title }}          
             {% endfor %}
         </p>
+        
+          {{ form(form) }}
     </div>
-    <p>
-        <a href="{{ path('edit_category', {'slug': category.slug}) }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-edit"></i>
-            Modifier la catégory
-        </a>
-        {% if category.level == 2 %}    
-        <a href="{{ path('add_item', {'slug_category': category.slug}) }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-plus"></i>
-            Ajouter Item
-        </a>
-        {% endif %}
-    </p>
+
 
 {% endblock %}

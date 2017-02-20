@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="item")
  * @ORM\Entity(repositoryClass="TreeBundle\Repository\ItemRepository")
  */
-class Item
-{
+class Item {
+
     /**
      * @var int
      *
@@ -36,6 +36,11 @@ class Item
     private $comment;
 
     /**
+     * @ORM\ManyToOne(targetEntity="TreeBundle\Entity\Category", cascade={"persist"}) 
+     */
+    private $category;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created", type="datetime")
@@ -49,14 +54,12 @@ class Item
      */
     private $updated;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -67,8 +70,7 @@ class Item
      *
      * @return Item
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -79,8 +81,7 @@ class Item
      *
      * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -91,8 +92,7 @@ class Item
      *
      * @return Item
      */
-    public function setComment($comment)
-    {
+    public function setComment($comment) {
         $this->comment = $comment;
 
         return $this;
@@ -103,9 +103,29 @@ class Item
      *
      * @return string
      */
-    public function getComment()
-    {
+    public function getComment() {
         return $this->comment;
+    }
+
+    /**
+     * Set genyForm
+     *
+     * @param Category $category
+     *
+     * @return Item
+     */
+    public function setCategory(Category $category = null) {
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * Get Category
+     *
+     * @return Category
+     */
+    public function getCategory() {
+        return $this->category;
     }
 
     /**
@@ -115,8 +135,7 @@ class Item
      *
      * @return Item
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -127,8 +146,7 @@ class Item
      *
      * @return \DateTime
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
@@ -139,8 +157,7 @@ class Item
      *
      * @return Item
      */
-    public function setUpdated($updated)
-    {
+    public function setUpdated($updated) {
         $this->updated = $updated;
 
         return $this;
@@ -151,9 +168,8 @@ class Item
      *
      * @return \DateTime
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
-}
 
+}
