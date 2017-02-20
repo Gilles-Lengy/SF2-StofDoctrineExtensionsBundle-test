@@ -40,14 +40,14 @@ class CoreController extends Controller {
           /* */
         $repo = $em->getRepository('TreeBundle:Category');
 
-        $food = $repo->findOneByTitle('Food');
-        echo $repo->childCount($food);
-        echo $repo->childCount($food, true/* direct */);
+//        $food = $repo->findOneByTitle('Food');
+//        echo $repo->childCount($food);
+//        echo $repo->childCount($food, true/* direct */);
         //$children = $repo->children($food);
         //var_dump($children);
         //$children = $repo->children($food, false, 'title');
         $arrayTree = $repo->childrenHierarchy();
-        var_dump($arrayTree);
+        //var_dump($arrayTree);
 
 
 //        $htmlTree = $repo->childrenHierarchy(
