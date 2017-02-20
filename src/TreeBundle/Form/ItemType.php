@@ -6,21 +6,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ItemType extends AbstractType
-{
+class ItemType extends AbstractType {
+
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('title')->add('comment')->add('created')->add('updated')        ;
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder
+                ->add('title')
+                ->add('comment')
+                ->add('save', 'submit')
+        ;
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'TreeBundle\Entity\Item'
         ));
@@ -29,10 +31,8 @@ class ItemType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
-    {
+    public function getBlockPrefix() {
         return 'treebundle_item';
     }
-
 
 }
