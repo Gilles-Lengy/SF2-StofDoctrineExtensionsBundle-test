@@ -38,8 +38,28 @@
             $("#treebundle_category_parent0").change(function () {
 
                 var section = $("#treebundle_category_parent0 option:selected").val();
-                $('#treebundle_category_parent').html('');
-                $('#treebundle_category_parent').append('<option value="4444" selected="selected">' + section + ' mon chapitre</option>');
+                var DATA = 'id=' + section;
+
+                $('#treebundle_category_parent').html('Patientez...');
+
+                $.ajax({
+                    type: "POST",
+                    dataType: 'json',
+                    url: "/SF2-SDEB-test/web/app_dev.php/getjsonchapitre/",
+                    data: DATA,
+                    success: function (msg)
+                    {
+                        $('#treebundle_category_parent').empty();
+                        var i = 0;
+                        var options = '';
+                        $.each(msg, function (index, chapitre) {
+                            for (var i = 0; i < chapitre.length; i++)
+                            {
+                                $('#treebundle_category_parent').append('<option value="' + chapitre[i].id +'"> ' + chapitre[i].title +' </option>');
+                            }
+                        });
+                    }
+                });
             });
 
         });

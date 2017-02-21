@@ -5,6 +5,7 @@ namespace CoreBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use TreeBundle\Entity\Category;
 use TreeBundle\Form\CategoryType;
 use TreeBundle\Entity\Item;
@@ -204,6 +205,35 @@ class CoreController extends Controller {
                     'item' => $item
                         )
         );
+    }
+
+    /**
+     * @Route("getjsonchapitre/", name="get_json_chapitre")
+     */
+    public function getJsonChapitreAction() {
+        $request = $this->getRequest();
+
+        if ($request->isXmlHttpRequest()) { // pour vérifier la présence d'une requete Ajax
+            $id_section = $request->request->get('id');
+
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('TreeBundle:Category');
+
+
+            if ($id_section != null) {
+                $chapitre = $repo->getChildrenArrayResult($id_section);
+                //var_dump($chapitre);
+
+                $response = new Response();
+                $chapitre_json = json_encode(array('chapitre' => $chapitre));
+                //var_dump($chapitre_json);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent($chapitre_json);
+                return $response;
+            }
+        }
+
+        return new Response("KKKKKOOOOOOO");
     }
 
 }
