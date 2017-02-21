@@ -1,4 +1,5 @@
 <?php
+
 namespace TreeBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="TreeBundle\Entity\Repository\CategoryRepository")
  * @Gedmo\TranslationEntity(class="TreeBundle\Entity\CategoryTranslation")
  */
-class Category
-{
+class Category {
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -108,112 +109,108 @@ class Category
      */
     private $translations;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->children = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
-    {
+    public function getTranslations() {
         return $this->translations;
     }
 
-    public function addTranslation(CategoryTranslation $t)
-    {
+    public function addTranslation(CategoryTranslation $t) {
         if (!$this->translations->contains($t)) {
             $this->translations[] = $t;
             $t->setObject($this);
         }
     }
 
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
     }
 
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
     }
 
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
     }
 
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
-    public function setParent($parent)
-    {
+    public function setParent($parent) {
         $this->parent = $parent;
     }
 
-    public function getParent()
-    {
+    public function getParent() {
         return $this->parent;
     }
 
-    public function getRoot()
-    {
+    public function setParent0($parent) {
+        $this->parent = $parent;
+    }
+
+    public function getParent0() {
+        return $this->parent;
+    }
+
+    public function setParent1($parent) {
+        $this->parent = $parent;
+    }
+
+    public function getParent1() {
+        return $this->parent;
+    }
+
+    public function getRoot() {
         return $this->root;
     }
 
-    public function getLevel()
-    {
+    public function getLevel() {
         return $this->level;
     }
 
-    public function getChildren()
-    {
+    public function getChildren() {
         return $this->children;
     }
 
-    public function getLeft()
-    {
+    public function getLeft() {
         return $this->lft;
     }
 
-    public function getRight()
-    {
+    public function getRight() {
         return $this->rgt;
     }
 
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
-    public function getUpdated()
-    {
+    public function getUpdated() {
         return $this->updated;
     }
 
-    public function getCreatedBy()
-    {
+    public function getCreatedBy() {
         return $this->createdBy;
     }
 
-    public function getUpdatedBy()
-    {
+    public function getUpdatedBy() {
         return $this->updatedBy;
     }
 
-    public function __toString()
-    {
+    public function __toString() {
         return $this->getTitle();
     }
+
 }

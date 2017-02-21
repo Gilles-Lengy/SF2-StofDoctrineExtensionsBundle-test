@@ -27,4 +27,21 @@
         {{ form(form) }}
     </div>
 
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $("#treebundle_category_parent0").change(function () {
+
+                var section = $("#treebundle_category_parent0 option:selected").val();
+                $('#treebundle_category_parent').html('');
+                $('#treebundle_category_parent').append('<option value="4444" selected="selected">' + section + ' mon chapitre</option>');
+            });
+
+        });
+    </script>
 {% endblock %}
