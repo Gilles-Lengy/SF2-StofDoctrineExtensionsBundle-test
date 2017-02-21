@@ -200,7 +200,7 @@ class CoreController extends Controller {
         $path = $repo->getPath($category);
         //var_dump($path);
 
-        $form = $this->get('form.factory')->create(new CategoryType(), $category);
+        $form = $this->get('form.factory')->create(new PartieType(), $category);
 
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
