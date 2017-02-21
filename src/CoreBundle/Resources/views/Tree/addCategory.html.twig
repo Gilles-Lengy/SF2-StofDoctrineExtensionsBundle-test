@@ -40,26 +40,34 @@
                 var section = $("#treebundle_category_parent0 option:selected").val();
                 var DATA = 'id=' + section;
 
-                $('#treebundle_category_parent').html('Patientez...');
 
-                $.ajax({
-                    type: "POST",
-                    dataType: 'json',
-                    url: "/SF2-SDEB-test/web/app_dev.php/getjsonchapitre/",
-                    data: DATA,
-                    success: function (msg)
-                    {
-                        $('#treebundle_category_parent').empty();
-                        var i = 0;
-                        var options = '';
-                        $.each(msg, function (index, chapitre) {
-                            for (var i = 0; i < chapitre.length; i++)
-                            {
-                                $('#treebundle_category_parent').append('<option value="' + chapitre[i].id +'"> ' + chapitre[i].title +' </option>');
-                            }
-                        });
-                    }
-                });
+                if (section > 0) {
+
+                    $('#treebundle_category_parent').html('<option>Patientez</option>');
+
+                    $.ajax({
+                        type: "POST",
+                        dataType: 'json',
+                        url: "/SF2-SDEB-test/web/app_dev.php/getjsonchapitre/",
+                        data: DATA,
+                        success: function (msg)
+                        {
+                            $('#treebundle_category_parent').empty();
+                            $('#treebundle_category_parent').append('<option value="'+section+'">xxxxxxx</option>');
+                            $.each(msg, function (index, chapitre) {
+                                for (var i = 0; i < chapitre.length; i++)
+                                {
+                                    $('#treebundle_category_parent').append('<option value="' + chapitre[i].id + '"> ' + chapitre[i].title + ' </option>');
+                                }
+                            });
+                        }
+                    });
+                }
+
+                if (section === '') {
+                    $('#treebundle_category_parent').empty();
+                    $('#treebundle_category_parent').append('<option value=""></option>');
+                }
             });
 
         });

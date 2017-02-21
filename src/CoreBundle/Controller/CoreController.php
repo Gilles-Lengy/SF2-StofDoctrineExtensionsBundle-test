@@ -83,7 +83,7 @@ class CoreController extends Controller {
 
             $request->getSession()->getFlashBag()->add('notice', 'Category bien enregistrée.');
 
-            return $this->redirect($this->generateUrl('add_category'));
+            return $this->redirect($this->generateUrl('homepage'));
         }
 
         return $this->render('CoreBundle:Tree:addCategory.html.twig', array(

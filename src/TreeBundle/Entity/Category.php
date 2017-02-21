@@ -158,19 +158,19 @@ class Category {
     }
 
     public function setParent0($parent) {
-        $this->parent = $parent;
+        //$this->parent = $parent;
     }
 
     public function getParent0() {
-        return $this->parent;
+        //return $this->parent;
     }
 
     public function setParent1($parent) {
-        $this->parent = $parent;
+        //$this->parent = $parent;
     }
 
     public function getParent1() {
-        return $this->parent;
+       // return $this->parent;
     }
 
     public function getRoot() {

@@ -17,7 +17,7 @@ class CategoryType extends AbstractType {
         $builder
                 ->add('parent0', 'entity', array(
                     'class' => 'TreeBundle:Category',
-                    'label' => 'Section',
+                    'label' => 'Partie',
                     'query_builder' => function (CategoryRepository $er) {
                         return $er->createQueryBuilder('c')
                                 ->where('c.level = 0')
