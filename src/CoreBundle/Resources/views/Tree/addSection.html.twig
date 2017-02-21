@@ -1,0 +1,69 @@
+{# On utilise ici le layout général, qui se situe dans ce même AppBundle maintenant #}
+{% extends "CoreBundle::layout.html.twig" %}
+
+{% block title %}
+    Ajouter section - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <div>
+
+        {# On affiche tous les messages flash dont le nom est « notice » #}
+
+        {% for message in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success" role="alert">
+                <p>{{ message }}</p>
+            </div>
+
+
+        {% endfor %}
+
+    </div>
+
+    <h2>Ajouter section</h2>
+
+    <div class="well">
+        {{ form(form) }}
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $("#treebundle_category_parent0").change(function () {
+
+                var section = $("#treebundle_category_parent0 option:selected").val();
+                var DATA = 'id=' + section;
+
+
+                if (section > 0) {
+
+                    $('#treebundle_category_parent').html('<option>Patientez</option>');
+
+                    $.ajax({
+                        type: "POST",
+                        dataType: 'json',
+                        url: "/SF2-SDEB-test/web/app_dev.php/getjsonchapitre/",
+                        data: DATA,
+                        success: function (msg)
+                        {
+                            $('#treebundle_category_parent').empty();
+                            $.each(msg, function (index, chapitre) {
+                                for (var i = 0; i < chapitre.length; i++)
+                                {
+                                    $('#treebundle_category_parent').append('<option value="' + chapitre[i].id + '"> ' + chapitre[i].title + ' </option>');
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+{% endblock %}

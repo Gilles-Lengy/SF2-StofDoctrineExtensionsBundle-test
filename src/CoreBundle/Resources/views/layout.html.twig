@@ -52,6 +52,11 @@
                                 Ajouter un chapitre
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ path('add_section') }}" class="btn btn-default">
+                                Ajouter une section
+                            </a>
+                        </li>
                     </ul>
                     <h4>Dernières Maj</h4>
                     {{ render(controller("CoreBundle:Core:menu", {'limit': 3})) }}

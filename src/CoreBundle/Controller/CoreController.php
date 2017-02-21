@@ -12,6 +12,7 @@ use TreeBundle\Entity\Item;
 use TreeBundle\Form\ItemType;
 use TreeBundle\Form\PartieType;
 use TreeBundle\Form\ChapitreType;
+use TreeBundle\Form\SectionType;
 
 class CoreController extends Controller {
 
@@ -137,6 +138,30 @@ class CoreController extends Controller {
         }
 
         return $this->render('CoreBundle:Tree:addChapitre.html.twig', array(
+                    'form' => $form->createView(),
+                        )
+        );
+    }
+
+    /**
+     * @Route("/add/section/", name="add_section")
+     */
+    public function addSectionAction(Request $request) {
+
+        $category = new Category();
+        $form = $this->get('form.factory')->create(new SectionType(), $category);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Category bien enregistrée.');
+
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+
+        return $this->render('CoreBundle:Tree:addSection.html.twig', array(
                     'form' => $form->createView(),
                         )
         );
