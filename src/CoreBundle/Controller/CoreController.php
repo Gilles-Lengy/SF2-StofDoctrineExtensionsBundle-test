@@ -10,6 +10,7 @@ use TreeBundle\Entity\Category;
 use TreeBundle\Form\CategoryType;
 use TreeBundle\Entity\Item;
 use TreeBundle\Form\ItemType;
+use TreeBundle\Form\PartieType;
 
 class CoreController extends Controller {
 
@@ -87,6 +88,30 @@ class CoreController extends Controller {
         }
 
         return $this->render('CoreBundle:Tree:addCategory.html.twig', array(
+                    'form' => $form->createView(),
+                        )
+        );
+    }
+
+    /**
+     * @Route("/add/partie/", name="add_partie")
+     */
+    public function addPartieAction(Request $request) {
+
+        $category = new Category();
+        $form = $this->get('form.factory')->create(new PartieType(), $category);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Category bien enregistrée.');
+
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+
+        return $this->render('CoreBundle:Tree:addPartie.html.twig', array(
                     'form' => $form->createView(),
                         )
         );
